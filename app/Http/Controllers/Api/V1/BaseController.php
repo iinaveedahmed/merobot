@@ -15,29 +15,42 @@ class BaseController extends Controller
     use Helpers;
 
 
+    /**
+     * Validate Api request payload
+     * @param $validation
+     * @param $request
+     * @return array
+     */
     protected function validateApiRequest($validation, $request)
     {
         if (is_array($validation) && count($validation) >= 1) {
-            //split name list
+            // split name list
             $fields_list = [];
-
             foreach ($validation as $key => $value) {
                 $fields_list[] = $key;
             }
 
+            // grab values
             $fields = $request->only($fields_list);
 
+            // validate
             $validator = Validator::make($fields, $validation);
-
             if ($validator->fails()) {
+                // throw error if invalid
                 throw new ValidationHttpException($validator->errors()->all());
             }
 
+            // return if true
             return $fields_list;
         }
     }
 
 
+    /**
+     * Generate robot name
+     * @param $id
+     * @return mixed
+     */
     protected function robotName($id)
     {
         // name list
@@ -54,12 +67,16 @@ class BaseController extends Controller
             'WAL-E',
         ];
 
-        $id = ($id > 9) ? $id % 10 : $id;
-
+        $id = substr($id, -1);
         return $names[$id];
     }
 
 
+    /**
+     * Generate shop name
+     * @param $id
+     * @return mixed
+     */
     protected function shopName($id)
     {
         // name list
@@ -76,8 +93,7 @@ class BaseController extends Controller
             'Hall of Origin',
         ];
 
-        $id = ($id > 9) ? $id % 10 : $id;
-
+        $id = substr($id, -1);
         return $names[$id];
     }
 

@@ -22,3 +22,14 @@ $api->version('v1', ['namespace' => 'Merobot\Http\Controllers'], function ($api)
 
     //Ends/
 });
+
+/*
+ * Home Page
+ * */
+Route::get('/', function () {
+   return view('welcome');
+});
+
+Route::get('/api', function () {
+    return view('api');
+});

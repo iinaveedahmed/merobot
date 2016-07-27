@@ -11,11 +11,20 @@
 |
 */
 
-$factory->define(Merobot\User::class, function (Faker\Generator $faker) {
+// shop factory
+$factory->define(Merobot\Shop::class, function (Faker\Generator $faker) {
     return [
-        'name' => $faker->name,
-        'email' => $faker->safeEmail,
-        'password' => bcrypt(str_random(10)),
-        'remember_token' => str_random(10),
+        'height' => 20,
+        'width' => 20,
+    ];
+});
+
+// robot factory
+$factory->define(Merobot\Robot::class, function (Faker\Generator $faker) {
+    return [
+        'shop_id' => 20,
+        'x' => 3,
+        'y' => 3,
+        'heading' => 'S'
     ];
 });
